@@ -1,0 +1,9 @@
+node_modules
+.next
+*.png
+*.mp4
+*.zip
+*.psd
+*.pack.gz
+*.node
+.next/cache

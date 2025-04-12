@@ -1,0 +1,92 @@
+/* 컨테이너에 중앙 정렬 */
+.availability-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+  }
+  
+  /* 제목 */
+  .availability-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* 입력 그룹 중앙 정렬 */
+  .input-group {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* 시간 버튼을 담은 그리드 */
+  .time-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .time-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .time-button.selected {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  /* 액션 버튼 중앙 정렬 */
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .action-button {
+    padding: 10px 15px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .action-button:hover {
+    background-color: #333;
+  }
+  
+  /* 메시지 스타일 */
+  .message {
+    margin-top: 16px;
+    color: green;
+    text-align: center;
+  }
+  
+    
+              
