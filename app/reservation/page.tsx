@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import {
   Box,
   Button,
@@ -198,3 +200,4 @@ export default function ReservationPage() {
     </Box>
   );
 }
+

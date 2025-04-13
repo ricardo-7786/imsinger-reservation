@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import {
   Box,
@@ -138,3 +139,4 @@ export default function ReviewPage() {
     </Container>
   );
 }
+

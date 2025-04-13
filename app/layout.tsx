@@ -1,6 +1,10 @@
-import { ChakraProvider } from "@chakra-ui/react";
+'use client';
 
-export default function RootLayout({ children }) {
+export const dynamic = 'force-dynamic';
+
+import { ChakraProvider } from '@chakra-ui/react';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body>
@@ -11,5 +15,6 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
 
 
