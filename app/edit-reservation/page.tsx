@@ -14,13 +14,13 @@ import {
   Text,
   Fade,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 
-export default function EditReservationPage() {
+function EditReservationInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
@@ -62,12 +62,7 @@ export default function EditReservationPage() {
 
     try {
       const docRef = doc(db, 'reservations', id);
-      await updateDoc(docRef, {
-        name,
-        date,
-        time,
-        teacher,
-      });
+      await updateDoc(docRef, { name, date, time, teacher });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 4000);
       toast({
@@ -156,6 +151,16 @@ export default function EditReservationPage() {
     </Container>
   );
 }
+
+export default function EditReservationPage() {
+  return (
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <EditReservationInner />
+    </Suspense>
+  );
+}
+
+
 
 
 

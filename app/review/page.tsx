@@ -14,18 +14,13 @@ import {
   useColorModeValue,
   Spinner,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase';
-import {
-  doc,
-  getDoc,
-  setDoc,
-  serverTimestamp,
-} from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { StarIcon } from '@chakra-ui/icons';
 
-export default function ReviewPage() {
+function ReviewPageInner() {
   const params = useSearchParams();
   const router = useRouter();
   const toast = useToast();
@@ -39,7 +34,6 @@ export default function ReviewPage() {
 
   const cardBg = useColorModeValue('white', 'gray.800');
 
-  // reservationId 확인 후 로딩 방지
   useEffect(() => {
     if (!reservationId) return;
 
@@ -47,7 +41,7 @@ export default function ReviewPage() {
       try {
         const resDoc = await getDoc(doc(db, 'reservations', reservationId));
         if (resDoc.exists()) {
-          setTeacherName(resDoc.data().teacherName || '강사 정보 없음');
+          setTeacherName(resDoc.data().teacherName || resDoc.data().teacher || '강사 정보 없음');
         } else {
           toast({ title: '예약 정보를 찾을 수 없습니다.', status: 'error' });
           router.push('/mypage');
@@ -140,3 +134,10 @@ export default function ReviewPage() {
   );
 }
 
+export default function ReviewPage() {
+  return (
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <ReviewPageInner />
+    </Suspense>
+  );
+}

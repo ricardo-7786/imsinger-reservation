@@ -1,5 +1,4 @@
 'use client';
-
 export const dynamic = 'force-dynamic';
 
 import {
@@ -12,7 +11,7 @@ import {
   Text,
   Fade,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { db, auth } from '@/lib/firebase';
 import { CheckCircleIcon } from '@chakra-ui/icons';
@@ -21,7 +20,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 const hourlyTimes = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 
-export default function ReservationPage() {
+function ReservationContentInner() {
   const toast = useToast();
   const searchParams = useSearchParams();
   const [user] = useAuthState(auth);
@@ -131,18 +130,17 @@ export default function ReservationPage() {
                 {user.displayName}님, 환영합니다 👤
               </Text>
             )}
-            {taglineLines.length > 0 && (
-              <>
-                <Text fontSize="2xl" fontWeight="extrabold" color="gray.800" whiteSpace="pre-wrap">
-                  '{taglineLines[0]}'
-                </Text>
-                {taglineLines[1] && (
-                  <Text fontSize="2xl" fontWeight="extrabold" color="gray.800" whiteSpace="pre-wrap">
-                    '{taglineLines[1]}'
-                  </Text>
-                )}
-              </>
-            )}
+            {taglineLines.map((line, idx) => (
+              <Text
+                key={idx}
+                fontSize="2xl"
+                fontWeight="extrabold"
+                color="gray.800"
+                whiteSpace="pre-wrap"
+              >
+                '{line}'
+              </Text>
+            ))}
           </Box>
         )}
 
@@ -201,3 +199,10 @@ export default function ReservationPage() {
   );
 }
 
+export default function ReservationPage() {
+  return (
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <ReservationContentInner />
+    </Suspense>
+  );
+}
