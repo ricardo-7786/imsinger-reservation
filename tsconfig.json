@@ -5,7 +5,6 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["app/*"],
-      "@/theme/*": ["src/theme/*"],
       "@lib/*": ["app/lib/*"]
     },
     "allowJs": true,
