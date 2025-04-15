@@ -32,6 +32,12 @@ function ReservationContentInner() {
   const [tagline, setTagline] = useState('');
   const [success, setSuccess] = useState(false);
 
+  // 💡 Netlify iframe 안쪽 배경을 투명하게
+  useEffect(() => {
+    document.body.style.background = 'transparent';
+    document.documentElement.style.background = 'transparent';
+  }, []);
+
   useEffect(() => {
     if (user?.displayName) {
       setName(user.displayName);
@@ -92,27 +98,16 @@ function ReservationContentInner() {
 
   return (
     <Box
-      position="relative"
+      position="fixed"
+      top={0}
+      left={0}
       w="100vw"
-      minH="100vh"
-      overflow="hidden"
+      h="100vh"
       display="flex"
       justifyContent="center"
       alignItems="center"
-      _before={{
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        w: '100%',
-        h: '100%',
-        backgroundImage: "url('/image/vocal-bg.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        filter: 'blur(12px)',
-        zIndex: -1,
-      }}
+      backgroundColor="rgba(0,0,0,0.5)"
+      zIndex={9999}
     >
       <Box
         p={8}
@@ -206,3 +201,4 @@ export default function ReservationPage() {
     </Suspense>
   );
 }
+
