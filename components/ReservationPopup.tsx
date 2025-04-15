@@ -1,65 +1,56 @@
-import { useEffect } from "react";
+'use client';
+import { useEffect, useState } from 'react';
 
 export default function ReservationPopup() {
+  const [show, setShow] = useState(false);
+
   useEffect(() => {
-    const existing = document.getElementById("reservation-iframe-popup");
-    if (existing) existing.remove();
-
-    const wrapper = document.createElement("div");
-    wrapper.id = "reservation-iframe-popup";
-    wrapper.style.position = "fixed";
-    wrapper.style.top = "0";
-    wrapper.style.left = "0";
-    wrapper.style.width = "100vw";
-    wrapper.style.height = "100vh";
-    wrapper.style.backgroundColor = "rgba(0,0,0,0.5)";
-    wrapper.style.display = "flex"; // ← 팝업 안 뜨면 이 부분 확인!
-    wrapper.style.alignItems = "center";
-    wrapper.style.justifyContent = "center";
-    wrapper.style.zIndex = "9999";
-
-    const iframe = document.createElement("iframe");
-    iframe.src =
-      "https://imsinger-reservation-92t2o1rng-imsingers-projects.vercel.app/reservation?teacher=이연희&tagline=보컬 코치 이연희<br>감성과 테크닉을 모두 잡다";
-    iframe.style.width = "90vw";
-    iframe.style.height = "90vh";
-    iframe.style.border = "none";
-    iframe.style.borderRadius = "16px";
-    iframe.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.3)";
-    iframe.style.background = "white";
-
-    const closeBtn = document.createElement("button");
-    closeBtn.innerText = "✕";
-    closeBtn.style.position = "absolute";
-    closeBtn.style.top = "20px";
-    closeBtn.style.right = "20px";
-    closeBtn.style.fontSize = "24px";
-    closeBtn.style.background = "transparent";
-    closeBtn.style.border = "none";
-    closeBtn.style.color = "white";
-    closeBtn.style.cursor = "pointer";
-    closeBtn.style.zIndex = "10000";
-    closeBtn.onclick = () => {
-      wrapper.style.display = "none";
+    const openHandler = () => {
+      setShow(true);
+      document.body.classList.add('popup-open'); // ✅ blur 클래스 추가
     };
-
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        wrapper.style.display = "none";
-      }
-    };
-    document.addEventListener("keydown", handleEsc);
-
-    wrapper.appendChild(closeBtn);
-    wrapper.appendChild(iframe);
-    document.body.appendChild(wrapper);
+    window.addEventListener('openReservationPopup', openHandler);
 
     return () => {
-      document.removeEventListener("keydown", handleEsc);
-      const cleanup = document.getElementById("reservation-iframe-popup");
-      if (cleanup) cleanup.remove();
+      window.removeEventListener('openReservationPopup', openHandler);
+      document.body.classList.remove('popup-open'); // ✅ 팝업 닫힐 때 제거
     };
   }, []);
 
-  return <div style={{ display: "none" }} />;
+  if (!show) return null;
+
+  return (
+    <div
+      id="reservation-iframe-popup"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'transparent', // ✅ 완전 투명
+        pointerEvents: 'none',
+        zIndex: 9999,
+      }}
+    >
+      <iframe
+        src="https://YOUR_SITE.netlify.app/reservation?teacher=이연희&tagline=보컬 코치 이연희<br>감성과 테크닉을 모두 잡다"
+        style={{
+          width: '90vw',
+          height: '90vh',
+          border: 'none',
+          borderRadius: '16px',
+          boxShadow: '0 20px 30px rgba(0, 0, 0, 0.25)',
+          background: 'transparent',
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'auto', // ✅ iframe 클릭 가능
+        }}
+        allowTransparency={true}
+      />
+    </div>
+  );
 }
+

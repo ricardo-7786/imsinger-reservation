@@ -1,0 +1,1 @@
+body.popup-open{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:-webkit-backdrop-filter .3s ease;transition:backdrop-filter .3s ease;transition:backdrop-filter .3s ease,-webkit-backdrop-filter .3s ease}
