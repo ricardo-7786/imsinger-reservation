@@ -34,6 +34,10 @@ function ReservationContentInner() {
   const [tagline, setTagline] = useState('');
   const [success, setSuccess] = useState(false);
 
+<<<<<<< HEAD
+=======
+  // ✅ iframe 페이지 배경 완전 투명하게
+>>>>>>> 3666a8f06551c71399cc5710fafcef7ba22680f7
   useEffect(() => {
     document.body.style.background = 'transparent';
     document.documentElement.style.background = 'transparent';
@@ -101,6 +105,7 @@ function ReservationContentInner() {
       zIndex={9999}
       background="transparent"
       backdropFilter="none"
+<<<<<<< HEAD
       pointerEvents="none"
     >
       <Box
@@ -112,6 +117,19 @@ function ReservationContentInner() {
         maxW="90vw"
         fontFamily="'Pretendard', sans-serif"
         pointerEvents="auto"
+=======
+      pointerEvents="none" // 외부 클릭 방지
+    >
+      <Box
+        p={8}
+        bg="white"
+        rounded="2xl"
+        boxShadow="2xl"
+        minW="360px"
+        maxW="90vw"
+        fontFamily="'Pretendard', sans-serif"
+        pointerEvents="auto" // 팝업 안은 클릭 가능
+>>>>>>> 3666a8f06551c71399cc5710fafcef7ba22680f7
       >
         {(user?.displayName || taglineLines.length > 0) && (
           <Box textAlign="center" mb={6}>
