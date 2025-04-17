@@ -1,4 +1,24 @@
 [[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "ALLOWALL"
+for = "/*"
+[headers.values]
+  X-Frame-Options = "ALLOWALL"
+
+[build]
+command = "npm run build"
+publish = ".next"
+
+[build.environment]
+NODE_VERSION = "18"
+NEXT_PRIVATE_TARGET = "server"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+
+[functions]
+included_files = ["public/**", "app/**", "styles/**", "components/**", "lib/**"]
+
+# ❌ 아래 리다이렉트는 삭제하거나 주석 처리
+# [[redirects]]
+# from = "/*"
+# to = "/index.html"
+# status = 200

@@ -18,7 +18,9 @@ import { CheckCircleIcon } from '@chakra-ui/icons';
 import { useSearchParams } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-const hourlyTimes = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
+const hourlyTimes = Array.from({ length: 24 }, (_, i) =>
+  `${i.toString().padStart(2, '0')}:00`
+);
 
 function ReservationContentInner() {
   const toast = useToast();
@@ -32,25 +34,19 @@ function ReservationContentInner() {
   const [tagline, setTagline] = useState('');
   const [success, setSuccess] = useState(false);
 
-  // 💡 Netlify iframe 안쪽 배경을 투명하게
   useEffect(() => {
     document.body.style.background = 'transparent';
     document.documentElement.style.background = 'transparent';
   }, []);
 
   useEffect(() => {
-    if (user?.displayName) {
-      setName(user.displayName);
-    }
+    if (user?.displayName) setName(user.displayName);
+
     const teacherFromURL = searchParams.get('teacher');
     const taglineFromURL = searchParams.get('tagline');
 
-    if (teacherFromURL) {
-      setTeacher(decodeURIComponent(teacherFromURL));
-    }
-    if (taglineFromURL) {
-      setTagline(decodeURIComponent(taglineFromURL));
-    }
+    if (teacherFromURL) setTeacher(decodeURIComponent(teacherFromURL));
+    if (taglineFromURL) setTagline(decodeURIComponent(taglineFromURL));
   }, [user, searchParams]);
 
   const handleReservation = async () => {
@@ -99,27 +95,26 @@ function ReservationContentInner() {
   return (
     <Box
       position="fixed"
-      top={0}
-      left={0}
-      w="100vw"
-      h="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      backgroundColor="rgba(0,0,0,0.5)"
+      top="50%"
+      left="50%"
+      transform="translate(-50%, -50%)"
       zIndex={9999}
+      background="transparent"
+      backdropFilter="none"
+      pointerEvents="none"
     >
       <Box
-        p={8}
-        bg="whiteAlpha.900"
-        rounded="2xl"
-        boxShadow="2xl"
+        p={0}
+        bg="transparent"
+        rounded="none"
+        boxShadow="none"
         minW="360px"
         maxW="90vw"
         fontFamily="'Pretendard', sans-serif"
+        pointerEvents="auto"
       >
         {(user?.displayName || taglineLines.length > 0) && (
-          <Box textAlign="center" mb={10}>
+          <Box textAlign="center" mb={6}>
             {user?.displayName && (
               <Text fontSize="md" fontWeight="bold" color="purple.600" mb={6}>
                 {user.displayName}님, 환영합니다 👤

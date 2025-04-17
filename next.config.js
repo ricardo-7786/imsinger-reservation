@@ -3,9 +3,9 @@ const path = require("path");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone', // ✅ Netlify에서 CSR 및 SSR 지원 (정적 export 대신)
+  output: 'export', // ✅ Netlify 정적 배포용
   experimental: {
-    appDir: true, // ✅ Next 13+ app directory 사용하는 경우 필요
+    appDir: true,
   },
   webpack: (config) => {
     config.resolve.alias["@lib"] = path.resolve(__dirname, "lib");
@@ -18,7 +18,7 @@ const nextConfig = {
         headers: [
           {
             key: "X-Frame-Options",
-            value: "ALLOWALL", // ✅ iframe 허용을 위한 핵심
+            value: "ALLOWALL",
           },
         ],
       },

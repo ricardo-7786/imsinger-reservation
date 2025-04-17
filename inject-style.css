@@ -1,0 +1,6 @@
+body.popup-open {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* for Safari */
+    transition: backdrop-filter 0.3s ease;
+  }
+  
